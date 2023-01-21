@@ -1,0 +1,53 @@
+                                              // Perform Linear Search.
+#include <iostream>
+#include<conio.h>
+#include<stdlib.h>
+using namespace std;
+
+int main() {
+    int n;
+    int i,item,c;
+    int lsearch(int[],int,int);
+
+    cout << "Enter length of Array required.\n";
+    cin>>n;
+    int arr[n];
+    cout << "\nEnter Elements into Array : " << endl;
+    for (i=0;i<n;i++)
+    {cin >>arr[i];}
+    cout << "\nEnter Element to Search : ";
+    cin>>item;
+    c=lsearch(arr,n,item);
+    if(0<=c)
+    {
+        cout<<" Item found at "<<c+1<<"th position. "<<endl;
+    }
+    else
+    {
+        cout<<" Item does not exist "<<endl;
+    }
+    return 0;
+
+}
+
+int lsearch(int str[],int n,int item)
+{   int a=-1,b,c;
+    for(int i=0;i<n;i++)
+    {
+        if(str[i]==item)
+        {   a=i;
+            }
+        else
+          { b=-1;}
+
+    }
+    if(a>=0)
+    {
+        c=a;
+        return(c);
+    }
+    else{
+        c=b;
+        return(c);
+    }
+}

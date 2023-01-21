@@ -1,0 +1,59 @@
+# include <iostream>
+# include <conio.h>
+# include <graphics.h>
+# include <math.h>
+using namespace std;
+void Circle(int Radius,int xC,int yC);
+int main()
+{
+    int gd=DETECT, gm;
+    initgraph(&gd,&gm,"c:\\tc\\bgi");
+
+    int Radius, xC, yC;
+    cout<< endl << "Enter Center point coordinates...";
+    cout<<endl<<"  Xc    : ";
+    cin>>xC;
+    cout<<endl<<"  Yc    : ";
+    cin>>yC;
+    cout<<endl<<"Radius  : ";
+    cin>>Radius;
+    Circle(Radius,xC,yC);
+    getch();
+    return 0;
+}
+void Circle(int r,int xC,int yC)
+{
+    int P;
+    int x,y;
+    void Draw(int x,int y,int xC,int yC);
+    P = 1 - r;
+    x = 0;
+    y = r;
+    Draw(x,y,xC,yC);
+    while (x<=y)
+    {
+        x++;
+        if (P<0)
+        {
+            P += 2 * x + 1;
+        }
+        else
+        {
+            P += 2 * (x - y) + 1;
+            y--;
+        }
+        Draw(x,y,xC,yC);
+    }
+
+}
+void Draw(int x,int y,int xC,int yC)
+{
+    putpixel(xC + x,yC + y,12);
+    putpixel(xC + x,yC - y,12);
+    putpixel(xC - x,yC + y,12);
+    putpixel(xC - x,yC - y,12);
+    putpixel(xC + y,yC + x,12);
+    putpixel(xC - y,yC + x,12);
+    putpixel(xC + y,yC - x,12);
+    putpixel(xC - y,yC - x,12);
+}

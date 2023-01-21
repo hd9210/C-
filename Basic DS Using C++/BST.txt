@@ -1,0 +1,199 @@
+//                   BST implementation using Preorder , Inorder and Post Order.
+#include<iostream>
+#include<stdlib.h>
+#include<conio.h>
+using namespace std;
+struct automobile
+{
+    int data;
+    automobile *left;
+    automobile *right;
+};
+
+automobile* FindMin(automobile *node)
+{
+    if(node==NULL)
+    {
+        /* There is no element in the tree */
+        return NULL;
+    }
+    if(node->left) /* Go to the left sub tree to find the min element */
+        return FindMin(node->left);
+    else
+        return node;
+}
+automobile* FindMax(automobile *node)
+{
+    if(node==NULL)
+    {
+        /* There is no element in the tree */
+        return NULL;
+    }
+    if(node->right) /* Go to the left sub tree to find the min element */
+        return(FindMax(node->right));
+    else
+        return node;
+}
+
+automobile *Insert(automobile *node,int data)
+{
+    if(node==NULL)
+    {
+        automobile *temp;
+        temp=new automobile;
+        temp -> data = data;
+        temp -> left = temp -> right = NULL;
+        return temp;
+    }
+    if(data >(node->data))
+    {
+        node->right = Insert(node->right,data);
+    }
+    else if(data < (node->data))
+    {
+        node->left = Insert(node->left,data);
+    }
+    /* Else there is nothing to do as the data is already in the tree. */
+    return node;
+}
+automobile * Delet(automobile *node,int data)
+{
+    automobile *temp;
+    if(node==NULL)
+    {
+        cout<<"Automobile Not Found";
+    }
+    else if(data < node->data)
+    {
+        node->left = Delet(node->left, data);
+    }
+    else if(data > node->data)
+    {
+        node->right = Delet(node->right, data);
+    }
+    else
+    {
+        if(node->right && node->left)
+        {   temp = FindMin(node->right);
+            node -> data = temp->data;
+            node -> right = Delet(node->right,temp->data);
+        }
+        else
+        {    temp = node;
+            if(node->left == NULL)
+                node = node->right;
+            else if(node->right == NULL)
+                node = node->left;
+            free(temp);
+        }
+    }
+    return node;
+}
+automobile * Find(automobile *node, int data)
+{
+    if(node==NULL)
+    {
+        return NULL;
+    }
+    if(data > node->data)
+    {
+        return Find(node->right,data);
+    }
+    else if(data < node->data)
+    {
+        return Find(node->left,data);
+    }
+    else
+    {
+        /* Element Found */
+        return node;
+    }
+}
+void Inorder(automobile *node)
+{  if(node==NULL)
+    {
+        return;
+    }
+    Inorder(node->left);
+    cout<<node->data<<" ";
+    Inorder(node->right);
+}
+void Preorder(automobile *node)
+{
+    if(node==NULL)
+    {
+        return;
+    }
+    cout<<node->data<<" ";
+    Preorder(node->left);
+    Preorder(node->right);
+}
+void Postorder(automobile *node)
+{
+    if(node==NULL)
+    {
+        return;
+    }
+    Postorder(node->left);
+    Postorder(node->right);
+    cout<<node->data<<" ";
+}
+int main()
+{   automobile *root = NULL,*temp;
+    int ch;
+    cout<<"1.Insert Details of Automobile\n2.Delete Automobile Record\n3.Inorder\n4.Preorder\n5.Postorder\n6.Search\n7.Exit\n";
+    while(1)
+    {
+        cout<<endl;
+        cout<<"Enter Your choice:";
+        cin>>ch;
+        switch(ch)
+        {
+        case 1:
+            cout<<"\nEnter Automobile ID ";
+            cin>>ch;
+            root = Insert(root,ch);
+            break;
+        case 2:
+            cout<<"\nEnter Automobile ID to be deleted:";
+            cin>>ch;
+            root = Delet(root,ch);
+            cout<<"\nAfter deletion Automobiles ID in BST are:";
+            Inorder(root);
+            break;
+        case 3:
+            cout<<"\nInorder Travesals is:";
+            Inorder(root);
+            break;
+        case 4:
+            cout<<"\nPreorder Traversals is:";
+            Preorder(root);
+            break;
+        case 5:
+            cout<<"\nPostorder Traversals is:";
+            Postorder(root);
+            break;
+
+        case 6:
+            cout<<"\nEnter Automobile ID to be Searched:";
+            cin>>ch;
+            temp = Find(root,ch);
+            if(temp==NULL)
+            {
+                cout<<"Automobile ID is not found ";
+            }
+            else
+            {
+                cout<<"Automobile ID "<<temp->data<<" is Found\n";
+            }
+            break;
+        case 7:
+            exit(0);
+            break;
+        default:
+            cout<<"\nEnter correct choice: (1-7) ";
+            break;
+        }
+    }
+    return 0;
+}

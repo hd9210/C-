@@ -1,0 +1,49 @@
+//                               Program to draw line using midpoint line algorithm.
+#include<iostream>
+#include<stdio.h>
+#include<math.h>
+#include<conio.h>
+#include<graphics.h>
+#include<dos.h>
+using namespace std;
+int main()
+
+{
+   int x1,x2,y1,y2;
+    int gm;
+    int  gd=DETECT;
+    void lineMidPoint(int,int,int,int);
+    initgraph(&gd,&gm,"c:\\TC\\BGI");
+    cout<<" Enter initial point of x-axis and y-axis "<<endl;
+    cin>>x1>>y1;
+    cout<<" Enter final point of x-axis and y-axis "<<endl;
+    cin>>x2>>y2;
+    lineMidPoint(x1,y1,x2,y2);
+    return 0;
+ }
+
+ void lineMidPoint(int x1, int y1, int x2, int y2){
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+    int d = 2 * dy - dx;
+    int incrE = 2 * dy;
+    int incrNE = 2 * (dy - dx);
+    int x = x1;
+    int y = y1;
+    putpixel(x, y, WHITE);
+    while(x < x2){
+        if(d<=0){
+            d += incrE;
+            x++;
+            }
+        else{
+            d += incrNE;
+            x++;
+            y++;
+            }
+        putpixel(x, y, WHITE);
+        }
+
+        getch();
+        closegraph();
+    }

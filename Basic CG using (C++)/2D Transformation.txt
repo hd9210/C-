@@ -1,0 +1,52 @@
+//                              Program For 2D Transformations.
+#include<graphics.h>
+#include<conio.h>
+#include<iostream>
+#include<math.h>
+#include<stdlib.h>
+using namespace std;
+int main()
+{
+   void lineMidPoint(float,float,float,float);
+   int tx,ty,ch,t,i,j,k,sx,sy, x1,x2,y1,y2,a;
+   int gd = DETECT, gm;
+   initgraph(&gd, &gm,"C:\\TC\\BGI");
+   cout<<" Enter Coodinates of rectangle to be transformed : "<<endl;
+   cout<<" Enter x1 and Y1 "<<endl;
+   cin>>x1>>y1;
+   cout<<" Enter x2 and Y2 "<<endl;
+   cin>>x2>>y2;
+   rectangle(x1,y1,x2,y2);
+   cout<<endl<<endl<<endl;
+   cout<<"Enter Choice: 1.Translation  2.Rotation  3.Scaling  4.Exit "<<endl;
+   cin>>ch;
+
+	switch(ch)
+	{
+		case 1:
+			cout<<"Enter translational factor for x-axis and y-axis :";
+			cin>>tx>>ty;
+
+			rectangle(x1+tx,y1+ty,x2+tx,y2+ty);
+			break;
+
+		case 2 :
+			cout<<" Enter angle for the rotation of rectangle in degree "<<endl;
+			cin>>a;
+			rectangle((x1*cos(a)-y1*sin(a)),(x2*cos(a)-y2*sin(a)),(x1*sin(a)+y1*cos(a)),(x2*sin(a)+y2*cos(a)));
+
+			break;
+
+		case 3 :
+		   cout<<"Enter scale factor for x-axis & y-axis :";
+		   cin>>sx>>sy;
+		   rectangle(x1*sx, y1*sy, x2*sx, y2*sy);
+		   break;
+        case 4: exit(1);
+		default :
+			cout<<"Choose From 1-4 "<<endl;
+   }
+   getch();
+   closegraph();
+   return 0;
+}

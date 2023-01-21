@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1640702635 source:c:\users\neodi\onedrive\desktop\c++\new\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+
